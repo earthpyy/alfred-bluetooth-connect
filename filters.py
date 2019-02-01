@@ -97,7 +97,7 @@ elif command == 'resolve':  # RESOLVE FILTER
                     },
                     'mods': {
                         'cmd': {
-                            'subtitle': 'Toggle and unmark {} as favorite device'.format(favorite_name)
+                            'subtitle': 'Unmark {} as favorite device'.format(favorite_name)
                         }
                     }
                 }
