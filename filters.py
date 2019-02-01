@@ -21,11 +21,11 @@ if command == 'resolve':  # RESOLVE ALIAS
     try:
         with open(FILE_PATH, 'rb') as f:
             for line in f:
-                alias, name = get_value_from_line(line)
+                alias, device_name = get_value_from_line(line)
                 if query in alias:
                     items.append({
-                        'title': 'Toggle ' + name,
-                        'arg': name
+                        'title': 'Toggle ' + device_name,
+                        'arg': device_name
                     })
 
         result = {

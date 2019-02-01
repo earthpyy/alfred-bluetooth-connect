@@ -17,15 +17,15 @@ def split_set_sentence(sentence):
         split_words = query.split('>')
 
         alias = split_words[0].strip()
-        name = split_words[1].strip() if len(split_words) > 1 else None
+        device_name = split_words[1].strip() if len(split_words) > 1 else None
 
     else:  # short type
         split_words = query.split(' ')
 
         alias = split_words[0]
-        name = ' '.join(split_words[1:]) if len(split_words) > 1 else None
+        device_name = ' '.join(split_words[1:]) if len(split_words) > 1 else None
 
-    return alias, name
+    return alias, device_name
 
 def safe_check_directory(path):
     try:
@@ -39,6 +39,6 @@ def get_value_from_line(line):
     split_line = line.split(separator)
 
     alias = split_line[0][1:]  # remove left double quote
-    name = split_line[1][:-2]  # remove right double quote and newline
+    device_name = split_line[1][:-2]  # remove right double quote and newline
 
-    return alias, name
+    return alias, device_name
