@@ -1,14 +1,43 @@
 import json
 import sys
 
-from utils import FILE_PATH, get_value_from_line
+from utils import FILE_PATH, get_value_from_line, check_set_syntax, split_set_query, return_result
 
 
 # get argv
 command = sys.argv[1]
 query = sys.argv[2] if len(sys.argv) > 2 else ''
 
-if command == 'resolve':  # RESOLVE ALIAS
+if command == 'set':  # SET FILTER
+    alias, device_name = split_set_query(query)
+    valid = check_set_syntax(alias, device_name)
+
+    if valid:
+        result = {
+            'items': [
+                {
+                    'title': 'Set alias {} to {}'.format(alias, device_name),
+                    'arg': query,
+                    'variables': {
+                        'alias': alias,
+                        'device_name': device_name
+                    }
+                }
+            ]
+        }
+    else:
+        result = {
+            'items': [
+                {
+                    'title': 'Invalid syntax!',
+                    'subtitle': 'Syntax: btset {alias} {device name} OR btset {alias} > {device name}'
+                }
+            ]
+        }
+
+    return_result(result)
+
+elif command == 'resolve':  # RESOLVE FILTER
     items = [
         # default option
         {
@@ -31,6 +60,6 @@ if command == 'resolve':  # RESOLVE ALIAS
         result = {
             'items': items[::-1]  # reverse result
         }
-        sys.stdout.write(json.dumps(result))
+        return_result(result)
     except EnvironmentError:
         sys.stdout.write(query)

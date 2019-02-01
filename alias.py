@@ -1,14 +1,15 @@
 import os
 import sys
 
-from utils import DIR_PATH, FILE_PATH, split_set_sentence, safe_check_directory, get_value_from_line
+from utils import DIR_PATH, FILE_PATH, safe_check_directory, get_value_from_line
 
+command = sys.argv[1]
 
 if command == 'set':  # SET ALIAS
     alias = os.environ['alias']
     device_name = os.environ['device_name']
 
-    str_to_write = '"{}" "{}"\n'.format(alias, name)
+    str_to_write = '"{}" "{}"\n'.format(alias, device_name)
 
     # safe check for directory exist
     safe_check_directory(DIR_PATH)

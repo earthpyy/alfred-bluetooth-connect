@@ -1,3 +1,5 @@
+import json
+import sys
 from os import makedirs
 from os.path import expanduser, isdir
 
@@ -54,5 +56,9 @@ def check_set_syntax(alias, device_name):
         device_name is not None
     ]
 
-    print(alias, device_name)
     return all(conditions)
+
+
+def return_result(result):
+    json_str = json.dumps(result)
+    sys.stdout.write(json_str)
