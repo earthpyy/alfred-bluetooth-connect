@@ -88,10 +88,15 @@ elif command == 'unset':  # UNSET ALIAS
         pass
 
 elif command == 'resolve':  # RESOLVE ALIAS
-    items = []
+    items = [
+        # default option
+        {
+            'title': 'Toggle ' + query,
+            'arg': query
+        }
+    ]
 
     # open file
-    found = False
     try:
         with open(FILE_PATH, 'rb') as f:
             for line in f:
@@ -99,17 +104,8 @@ elif command == 'resolve':  # RESOLVE ALIAS
                 if query in alias:
                     items.append({
                         'title': 'Toggle ' + name,
-                        'subtitle': 'Toggle bluetooth device',
                         'arg': name
                     })
-                    found = True
-
-        if not found:
-            items.append({
-                'title': 'Toggle ' + query,
-                'subtitle': 'Toggle bluetooth device',
-                'arg': query
-            })
 
         result = {
             'items': items[::-1]  # reverse result
