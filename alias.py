@@ -62,7 +62,7 @@ if command == 'set':  # SET ALIAS
     # write to file
     with open(FILE_PATH, 'ab+') as f:
         f.write(result)
-        sys.stdout.write('success')
+        sys.stdout.write('Alias \'{}\' has been set!'.format(alias))
 
 elif command == 'unset':  # UNSET ALIAS
     # open file
@@ -70,13 +70,19 @@ elif command == 'unset':  # UNSET ALIAS
         with open(FILE_PATH, 'rb+') as f:
             lines = f.readlines()
             f.seek(0)
+
+            found = False
             for line in lines:
                 alias, _ = get_value_from_line(line)
                 # check if alias is match then not write back
                 if alias != query:
                     f.write(line)
+                else:
+                    found = True
             f.truncate()
-            sys.stdout.write('success')
+
+        if found:
+            sys.stdout.write('Alias \'{}\' has been unset!'.format(alias))
     except FileNotFoundError:
         pass
 
