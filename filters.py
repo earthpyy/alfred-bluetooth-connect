@@ -78,7 +78,7 @@ elif command == 'resolve':  # RESOLVE FILTER
             'title': 'Toggle ' + query,
             'arg': query,
             'variables': {
-                'device_name': device_name
+                'device_name': query
             }
         }
     ]

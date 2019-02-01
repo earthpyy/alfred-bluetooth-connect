@@ -1,5 +1,5 @@
 on run argv
-    set device_name to item 1 of argv
+    set device_name to (system attribute "device_name")
     tell application "System Events"
         tell process "SystemUIServer"
             tell (menu bar item 1 of menu bar 1 where description is "bluetooth")
