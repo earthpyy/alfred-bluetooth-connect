@@ -94,6 +94,11 @@ elif command == 'resolve':  # RESOLVE FILTER
                     'arg': query,
                     'variables': {
                         'device_name': favorite_name
+                    },
+                    'mods': {
+                        'cmd': {
+                            'subtitle': 'Toggle and unmark {} as favorite device'.format(favorite_name)
+                        }
                     }
                 }
             ]
@@ -108,6 +113,11 @@ elif command == 'resolve':  # RESOLVE FILTER
                 'arg': query,
                 'variables': {
                     'device_name': query
+                },
+                'mods': {
+                    'cmd': {
+                        'subtitle': 'Toggle and mark {} as favorite device'.format(query)
+                    }
                 }
             }
         ]
@@ -125,6 +135,11 @@ elif command == 'resolve':  # RESOLVE FILTER
                                 'arg': query,
                                 'variables': {
                                     'device_name': device_name
+                                },
+                                'mods': {
+                                    'cmd': {
+                                        'subtitle': 'Toggle and mark {} as favorite device'.format(device_name)
+                                    }
                                 }
                             }
                         )
@@ -138,6 +153,11 @@ elif command == 'resolve':  # RESOLVE FILTER
                                 'arg': query,
                                 'variables': {
                                     'device_name': device_name
+                                },
+                                'mods': {
+                                    'cmd': {
+                                        'subtitle': 'Toggle and mark {} as favorite device'.format(device_name)
+                                    }
                                 }
                             }
                         )

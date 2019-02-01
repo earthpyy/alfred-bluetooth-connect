@@ -1,15 +1,11 @@
 import json
+import os
 import sys
-from os import makedirs
-from os.path import expanduser, isdir
 
 
 # variables
-ALFRED_VERSION = '3'
-BUNDLE_ID = 'com.earthpyy.bluetooth.connect'
 FILE_NAME = 'alias.txt'
-
-DIR_PATH = '{}/Library/Application Support/Alfred {}/Workflow Data/{}'.format(expanduser('~'), ALFRED_VERSION, BUNDLE_ID)
+DIR_PATH = os.environ.get('alfred_workflow_data', '')
 FILE_PATH = DIR_PATH + '/' + FILE_NAME
 
 
@@ -32,9 +28,9 @@ def split_set_query(query):
 
 def safe_check_directory(path):
     try:
-        makedirs(DIR_PATH)
+        os.makedirs(DIR_PATH)
     except OSError:
-        if not isdir(DIR_PATH):
+        if not os.path.isdir(DIR_PATH):
             raise
 
 
