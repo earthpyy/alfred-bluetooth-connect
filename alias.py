@@ -1,42 +1,6 @@
-import json
 import sys
-from os import makedirs
-from os.path import expanduser, isdir
 
-from variables import DIR_PATH, FILE_PATH
-
-
-# funcions
-def split_set_sentence(sentence):
-    if '>' in query:  # long type
-        split_words = query.split('>')
-
-        alias = split_words[0].strip()
-        name = split_words[1].strip() if len(split_words) > 1 else None
-
-    else:  # short type
-        split_words = query.split(' ')
-
-        alias = split_words[0]
-        name = ' '.join(split_words[1:]) if len(split_words) > 1 else None
-
-    return alias, name
-
-def safe_check_directory(path):
-    try:
-        makedirs(DIR_PATH)
-    except OSError:
-        if not isdir(DIR_PATH):
-            raise
-
-def get_value_from_line(line):
-    separator = '" "'
-    split_line = line.split(separator)
-
-    alias = split_line[0][1:]  # remove left double quote
-    name = split_line[1][:-2]  # remove right double quote and newline
-
-    return alias, name
+from utils import DIR_PATH, FILE_PATH, split_set_sentence, safe_check_directory, get_value_from_line
 
 
 # get argv

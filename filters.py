@@ -1,18 +1,7 @@
 import json
 import sys
 
-from variables import FILE_PATH
-
-
-# funcions
-def get_value_from_line(line):
-    separator = '" "'
-    split_line = line.split(separator)
-
-    alias = split_line[0][1:]  # remove left double quote
-    name = split_line[1][:-2]  # remove right double quote and newline
-
-    return alias, name
+from utils import FILE_PATH, get_value_from_line
 
 
 # get argv
