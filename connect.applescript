@@ -10,7 +10,7 @@ on run argv
                         click
                         set menu_name to name of menu item 1 of menu 1
                         click menu item 1 of menu 1
-                        return menu_name & "ing " & device_name & "..."
+                        return menu_name & "ing"
                     end tell
                 else
                     key code 53  -- ESC

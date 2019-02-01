@@ -17,7 +17,7 @@ if command == 'set':  # SET ALIAS
     # write to file
     with open(FILE_PATH, 'ab+') as f:
         f.write(str_to_write)
-        sys.stdout.write('Alias \'{}\' has been set!'.format(alias))
+        sys.stdout.write('Alias has been set!'.format(alias))
 
 elif command == 'unset':  # UNSET ALIAS
     alias = os.environ['alias']
@@ -38,6 +38,6 @@ elif command == 'unset':  # UNSET ALIAS
             f.truncate()
 
         if found:
-            sys.stdout.write('Alias \'{}\' has been unset!'.format(alias))
+            sys.stdout.write('Alias has been unset!'.format(alias))
     except FileNotFoundError:
         pass
