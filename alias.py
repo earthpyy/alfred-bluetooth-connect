@@ -3,14 +3,7 @@ import sys
 from os import makedirs
 from os.path import expanduser, isdir
 
-
-# variables
-ALFRED_VERSION = '3'
-BUNDLE_ID = 'com.earthpyy.bluetooth.connect'
-FILE_NAME = 'alias.txt'
-
-DIR_PATH = '{}/Library/Application Support/Alfred {}/Workflow Data/{}'.format(expanduser('~'), ALFRED_VERSION, BUNDLE_ID)
-FILE_PATH = DIR_PATH + '/' + FILE_NAME
+from variables import DIR_PATH, FILE_PATH
 
 
 # funcions
@@ -51,19 +44,21 @@ command = sys.argv[1]
 query = sys.argv[2] if len(sys.argv) > 2 else ''
 
 if command == 'set':  # SET ALIAS
-    # verify syntax with ">"
     alias, name = split_set_sentence(query)
 
-    # create alias result
-    result = '"{}" "{}"\n'.format(alias, name)
+    # check syntax
+    valid = check_set_syntax(alias, name)
 
-    # safe check for directory exist
-    safe_check_directory(DIR_PATH)
+    if valid:
+        result = '"{}" "{}"\n'.format(alias, name)
 
-    # write to file
-    with open(FILE_PATH, 'ab+') as f:
-        f.write(result)
-        sys.stdout.write('Alias \'{}\' has been set!'.format(alias))
+        # safe check for directory exist
+        safe_check_directory(DIR_PATH)
+
+        # write to file
+        with open(FILE_PATH, 'ab+') as f:
+            f.write(result)
+            sys.stdout.write('Alias \'{}\' has been set!'.format(alias))
 
 elif command == 'unset':  # UNSET ALIAS
     # open file
