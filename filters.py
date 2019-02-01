@@ -82,6 +82,7 @@ elif command == 'resolve':  # RESOLVE FILTER
             items = [
                 {
                     'title': 'Toggle',
+                    'arg': 'Please specify device alias/name',
                     'subtitle': 'Toggle any bluetooth device'
                 }
             ]
