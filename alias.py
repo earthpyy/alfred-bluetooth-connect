@@ -1,3 +1,4 @@
+import json
 import sys
 from os import makedirs
 from os.path import expanduser, isdir
@@ -87,19 +88,32 @@ elif command == 'unset':  # UNSET ALIAS
         pass
 
 elif command == 'resolve':  # RESOLVE ALIAS
+    items = []
+
     # open file
+    found = False
     try:
         with open(FILE_PATH, 'rb') as f:
-            found = False
             for line in f:
                 alias, name = get_value_from_line(line)
-                # check if alias is match then get name
-                if alias == query:
-                    sys.stdout.write(name)
+                if query in alias:
+                    items.append({
+                        'title': 'Toggle ' + name,
+                        'subtitle': 'Toggle bluetooth device',
+                        'arg': name
+                    })
                     found = True
-                    break
 
-            if not found:
-                sys.stdout.write(query)
-    except FileNotFoundError:
+        if not found:
+            items.append({
+                'title': 'Toggle ' + query,
+                'subtitle': 'Toggle bluetooth device',
+                'arg': query
+            })
+
+        result = {
+            'items': items[::-1]  # reverse result
+        }
+        sys.stdout.write(json.dumps(result))
+    except EnvironmentError:
         sys.stdout.write(query)
