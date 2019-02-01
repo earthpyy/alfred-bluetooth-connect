@@ -37,16 +37,52 @@ if command == 'set':  # SET FILTER
 
     return_result(result)
 
+elif command == 'unset':  # UNSET FILTER
+    items = []
+
+    try:
+        with open(FILE_PATH, 'rb') as f:
+            for line in f:
+                alias, device_name = get_value_from_line(line)
+                if query in alias:
+                    items.append({
+                        'title': 'Unset ' + device_name,
+                        'arg': query,
+                        'variables': {
+                            'alias': alias
+                        }
+                    })
+    except EnvironmentError:
+        sys.stdout.write(query)
+
+    if items:
+        result = {
+            'items': items
+        }
+    else:
+        result = {
+            'items': [
+                {
+                    'title': 'Cannot find alias {}'.format(query),
+                    'subtitle': 'Please recheck your alias.'
+                }
+            ]
+        }
+
+    return_result(result)
+
 elif command == 'resolve':  # RESOLVE FILTER
     items = [
         # default option
         {
             'title': 'Toggle ' + query,
-            'arg': query
+            'arg': query,
+            'variables': {
+                'device_name': device_name
+            }
         }
     ]
 
-    # open file
     try:
         with open(FILE_PATH, 'rb') as f:
             for line in f:
@@ -54,7 +90,10 @@ elif command == 'resolve':  # RESOLVE FILTER
                 if query in alias:
                     items.append({
                         'title': 'Toggle ' + device_name,
-                        'arg': device_name
+                        'arg': query,
+                        'variables': {
+                            'device_name': device_name
+                        }
                     })
 
         result = {
