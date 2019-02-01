@@ -12,7 +12,7 @@ FILE_PATH = DIR_PATH + '/' + FILE_NAME
 
 
 # functions
-def split_set_sentence(sentence):
+def split_set_query(query):
     if '>' in query:  # long type
         split_words = query.split('>')
 
@@ -27,12 +27,14 @@ def split_set_sentence(sentence):
 
     return alias, device_name
 
+
 def safe_check_directory(path):
     try:
         makedirs(DIR_PATH)
     except OSError:
         if not isdir(DIR_PATH):
             raise
+
 
 def get_value_from_line(line):
     separator = '" "'
@@ -42,3 +44,15 @@ def get_value_from_line(line):
     device_name = split_line[1][:-2]  # remove right double quote and newline
 
     return alias, device_name
+
+
+def check_set_syntax(alias, device_name):
+    conditions = [
+        alias != '',
+        device_name != '',
+        alias is not None,
+        device_name is not None
+    ]
+
+    print(alias, device_name)
+    return all(conditions)
