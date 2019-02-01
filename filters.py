@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 
 from utils import FILE_PATH, get_value_from_line, check_set_syntax, split_set_query, return_result
@@ -72,32 +73,76 @@ elif command == 'unset':  # UNSET FILTER
     return_result(result)
 
 elif command == 'resolve':  # RESOLVE FILTER
-    items = [
-        # default option
-        {
-            'title': 'Toggle ' + query,
-            'arg': query,
-            'variables': {
-                'device_name': query
+    populated_favorite_name = None
+    pin = 0
+
+    if query in [None, '']:  # if no query
+        favorite_name = os.environ.get('FAVORITE_DEVICE', '')
+        if favorite_name == '':  # no favorite device
+            items = [
+                {
+                    'title': 'Toggle',
+                    'subtitle': 'Toggle any bluetooth device'
+                }
+            ]
+        else:  # has favorite device
+            items = [
+                {
+                    'title': 'Toggle ' + favorite_name,
+                    'subtitle': 'Toggle favorite bluetooth device',
+                    'arg': query,
+                    'variables': {
+                        'device_name': favorite_name
+                    }
+                }
+            ]
+            pin = 1
+            populated_favorite_name = favorite_name
+
+    else:  # query is provided
+        items = [
+            # default option
+            {
+                'title': 'Toggle ' + query,
+                'arg': query,
+                'variables': {
+                    'device_name': query
+                }
             }
-        }
-    ]
+        ]
 
     try:
         with open(FILE_PATH, 'rb') as f:
             for line in f:
                 alias, device_name = get_value_from_line(line)
-                if query in alias:
-                    items.append({
-                        'title': 'Toggle ' + device_name,
-                        'arg': query,
-                        'variables': {
-                            'device_name': device_name
-                        }
-                    })
+                if device_name != populated_favorite_name:  # check if favorite name is populated
+                    if query == alias:  # pin match on top
+                        items.insert(
+                            0,
+                            {
+                                'title': 'Toggle ' + device_name,
+                                'arg': query,
+                                'variables': {
+                                    'device_name': device_name
+                                }
+                            }
+                        )
+                        pin = 1
+
+                    elif query in alias:
+                        items.insert(
+                            pin,
+                            {
+                                'title': 'Toggle ' + device_name,
+                                'arg': query,
+                                'variables': {
+                                    'device_name': device_name
+                                }
+                            }
+                        )
 
         result = {
-            'items': items[::-1]  # reverse result
+            'items': items
         }
         return_result(result)
     except EnvironmentError:
