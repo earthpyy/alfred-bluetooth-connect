@@ -19,13 +19,13 @@ def split_set_sentence(sentence):
         split_words = query.split('>')
 
         alias = split_words[0].strip()
-        name = split_words[1].strip()
+        name = split_words[1].strip() if len(split_words) > 1 else None
 
     else:  # short type
         split_words = query.split(' ')
 
         alias = split_words[0]
-        name = ' '.join(split_words[1:])
+        name = ' '.join(split_words[1:]) if len(split_words) > 1 else None
 
     return alias, name
 
