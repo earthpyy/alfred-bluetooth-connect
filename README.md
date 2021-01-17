@@ -1,3 +1,6 @@
+# IMPORTANT NOTICE
+### This plugin is not updated anymore, please consider use [bmunoz89's Bluetooth Manager](https://github.com/bmunoz89/alfred-wf-bluetooth-manager) instead. Thanks for your support!
+
 # alfred-bluetooth-connect
 Alfred plugin that allowed to connect/disconnect to paired bluetooth device
 
